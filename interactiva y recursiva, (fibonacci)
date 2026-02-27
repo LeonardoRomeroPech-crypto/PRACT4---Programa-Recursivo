@@ -1,0 +1,51 @@
+import time
+
+# --------------------------
+# Fibonacci recursivo simple
+# --------------------------
+def fib_recursivo(n: int) -> int:
+    if n < 2:
+        return n
+    return fib_recursivo(n - 1) + fib_recursivo(n - 2)
+
+# --------------------------
+# Fibonacci iterativo
+# --------------------------
+def fib_iterativo(n: int) -> int:
+    if n < 2:
+        return n
+    a, b = 0, 1
+    for _ in range(2, n + 1):
+        a, b = b, a + b
+    return b
+
+# --------------------------
+# Función para medir tiempos
+# --------------------------
+def medir_tiempo(func, n: int) -> float:
+    inicio = time.time()      # segundos desde época [web:2][web:5]
+    resultado = func(n)
+    fin = time.time()
+    print(f"{func.__name__}({n}) = {resultado}")
+    return fin - inicio
+
+def main():
+    print("Cálculo de Fibonacci (recursivo vs iterativo)")
+    n = int(input("Introduce un número n (por ejemplo 10, 20, 30): "))
+
+    # Tiempo recursivo
+    t_rec = medir_tiempo(fib_recursivo, n)
+    print(f"Tiempo recursivo: {t_rec:.6f} segundos")
+
+    # Tiempo iterativo
+    t_it = medir_tiempo(fib_iterativo, n)
+    print(f"Tiempo iterativo: {t_it:.6f} segundos")
+
+    # Comparación
+    if t_it > 0:
+        print(f"La versión recursiva es aproximadamente {t_rec / t_it:.2f} veces el tiempo de la iterativa")
+    else:
+        print("El tiempo iterativo fue demasiado pequeño para comparar.")
+
+if __name__ == "__main__":
+    main()
